@@ -40,13 +40,9 @@ const Tools = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
             {tools.map((tool, i) => {
               const isActive = tool.link !== "#";
-              const Wrapper = isActive ? Link : "div";
-              return (
-                <Wrapper
-                  key={i}
-                  {...(isActive ? { to: tool.link } : {})}
-                  className={`p-5 rounded-xl border border-border bg-card transition-all ${isActive ? "hover:border-primary/50 hover:bg-primary/5 cursor-pointer" : "opacity-60 cursor-default"}`}
-                >
+              const cls = `p-5 rounded-xl border border-border bg-card transition-all ${isActive ? "hover:border-primary/50 hover:bg-primary/5 cursor-pointer" : "opacity-60 cursor-default"}`;
+              const inner = (
+                <>
                   <div className="flex items-start justify-between mb-3">
                     <div className="text-primary">{tool.icon}</div>
                     <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${tool.tag === "Popular" ? "bg-primary/10 text-primary" : tool.tag === "Coming Soon" ? "bg-secondary text-muted-foreground" : "bg-accent/10 text-accent"}`}>
