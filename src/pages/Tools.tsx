@@ -51,7 +51,12 @@ const Tools = () => {
                   </div>
                   <h3 className="font-semibold text-sm mb-1">{tool.title}</h3>
                   <p className="text-xs text-muted-foreground leading-relaxed">{tool.desc}</p>
-                </Wrapper>
+                </>
+              );
+              return isActive ? (
+                <Link key={i} to={tool.link} className={cls}>{inner}</Link>
+              ) : (
+                <div key={i} className={cls}>{inner}</div>
               );
             })}
           </div>
