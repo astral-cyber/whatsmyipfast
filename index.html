@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>What Is My IP Address | Free IP Checker Tool</title>
+
+  <meta name="description" content="Check your IP address instantly with location and ISP details. Free, fast, and mobile-friendly IP checker tool." />
+  <meta name="keywords" content="what is my ip, ip address checker, my ip location, ip lookup" />
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #0f172a;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .card {
+      background: #1e293b;
+      padding: 25px;
+      border-radius: 15px;
+      max-width: 500px;
+      width: 100%;
+    }
+
+    h1 {
+      font-size: 24px;
+    }
+
+    .ip {
+      font-size: 28px;
+      margin: 20px 0;
+      color: #38bdf8;
+    }
+
+    button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #38bdf8;
+      color: black;
+      font-weight: bold;
+    }
+
+    .info {
+      margin-top: 10px;
+      font-size: 14px;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+    <h1>What Is My IP Address</h1>
+
+    <div class="ip" id="ip">Loading...</div>
+
+    <button onclick="copyIP()">Copy IP</button>
+
+    <div class="info" id="details"></div>
+  </div>
+
+  <script>
+    async function getIP() {
+      try {
+        let res = await fetch("https://api.ipify.org?format=json");
+        let data = await res.json();
+
+        document.getElementById("ip").innerText = data.ip;
+        document.getElementById("details").innerText =
+          "Your public IP address is shown above.";
+      } catch (err) {
+        document.getElementById("ip").innerText = "Error loading IP";
+      }
+    }
+
+    function copyIP() {
+      let ip = document.getElementById("ip").innerText;
+      navigator.clipboard.writeText(ip);
+      alert("IP copied!");
+    }
+
+    getIP();
+  </script>
+
+</body>
+  </html>
