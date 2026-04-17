@@ -19,16 +19,31 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-      - run: npm ci
-      - run: npm run build
+
+      # Assemble a clean static site folder containing only HTML/CSS/JS assets.
+      - name: Assemble static site
+        run: |
+          mkdir -p _site
+          cp index.html _site/
+          cp 404.html _site/
+          cp ip-lookup.html _site/
+          cp privacy.html _site/
+          cp tools.html _site/
+          cp blog.html _site/
+          cp blog-post.html _site/
+          cp styles.css _site/
+          cp app.js _site/
+          cp posts.js _site/
+          cp sitemap.xml _site/ 2>/dev/null || true
+          cp robots.txt _site/ 2>/dev/null || true
+          cp favicon.ico _site/ 2>/dev/null || true
+          touch _site/.nojekyll
+          ls -la _site/
+
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: _site
 
   deploy:
     needs: build
