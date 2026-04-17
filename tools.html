@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Network Tools | IP Checker, Lookup, DNS Test &amp; More</title>
+  <meta name="description" content="Collection of free network tools: IP address checker, IP lookup, geolocation, DNS leak test, speed test, and more. No sign-up required." />
+  <meta name="keywords" content="network tools, ip tools, dns test, speed test, port scanner, ping test" />
+  <link rel="canonical" href="./tools.html" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main>
+    <div class="container">
+      <section class="section text-center">
+        <h1>Free Network Tools</h1>
+        <p class="hero-sub">A growing collection of free, fast, and secure network diagnostic and lookup tools. No sign-up required.</p>
+        <div class="tools-grid" id="tools-grid"></div>
+      </section>
+
+      <section class="section bordered">
+        <h2>Why Use Network Tools?</h2>
+        <div class="prose">
+          <p><strong>Network diagnostic tools</strong> are essential for understanding your internet connection, troubleshooting issues, and maintaining online security. Whether you're a network administrator, security researcher, or everyday internet user, having access to reliable network tools helps you stay informed about your digital presence.</p>
+          <p>Our <a class="link" href="index.html">IP checker</a> instantly reveals your public IP address and location — information that every website you visit can see. The <a class="link" href="ip-lookup.html">IP lookup tool</a> lets you investigate any IP address, useful for identifying suspicious connections or verifying server locations. Our <a class="link" href="privacy.html">privacy guide</a> explains how to protect your IP and browse safely.</p>
+          <p>All tools on this page are free, require no installation, and work directly in your browser. We're constantly adding new tools to help you better understand and manage your network connectivity. Check our <a class="link" href="blog.html">blog</a> for the latest updates and network security tips.</p>
+        </div>
+      </section>
+
+      <div id="faq-container"></div>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="app.js"></script>
+  <script>
+    window.initPage = function () {
+      const tools = [
+        { icon: ICONS.globe, title: "What Is My IP", desc: "Instantly see your public IP address, location, and ISP details.", link: "index.html", tag: "Popular", tagClass: "popular" },
+        { icon: ICONS.search, title: "IP Address Lookup", desc: "Look up any IP address to find its location and network information.", link: "ip-lookup.html", tag: "Popular", tagClass: "popular" },
+        { icon: ICONS.shield, title: "Privacy & VPN Guide", desc: "Learn how to protect your IP address and browse securely.", link: "privacy.html", tag: "Guide", tagClass: "guide" },
+        { icon: ICONS.map, title: "IP Geolocation", desc: "Map any IP address to its geographic coordinates and location.", link: "ip-lookup.html", tag: "Tool", tagClass: "guide" },
+        { icon: ICONS.lock, title: "DNS Leak Test", desc: "Check if your DNS requests are leaking outside your VPN tunnel.", link: "#", tag: "Coming Soon", tagClass: "soon" },
+        { icon: ICONS.zap, title: "Speed Test", desc: "Test your internet connection speed, latency, and bandwidth.", link: "#", tag: "Coming Soon", tagClass: "soon" },
+        { icon: ICONS.server, title: "Port Scanner", desc: "Scan for open ports on any IP address or hostname.", link: "#", tag: "Coming Soon", tagClass: "soon" },
+        { icon: ICONS.wifi, title: "Ping Test", desc: "Measure the round-trip time to any server or IP address.", link: "#", tag: "Coming Soon", tagClass: "soon" }
+      ];
+      document.getElementById("tools-grid").innerHTML = tools.map(t => {
+        const active = t.link !== "#";
+        const cls = active ? "tool-card active" : "tool-card inactive";
+        const inner = `
+          <div class="tool-head">
+            <div class="icon">${t.icon}</div>
+            <span class="tag ${t.tagClass}">${t.tag}</span>
+          </div>
+          <h3>${t.title}</h3>
+          <p>${t.desc}</p>`;
+        return active
+          ? `<a href="${t.link}" class="${cls}">${inner}</a>`
+          : `<div class="${cls}">${inner}</div>`;
+      }).join("");
+
+      renderFaqs("faq-container", [
+        { q: "What network tools do you offer?", a: "We currently offer a free IP checker (What Is My IP), IP address lookup with geolocation, and a comprehensive privacy and VPN guide. We're actively developing additional tools including DNS leak test, speed test, port scanner, and ping test." },
+        { q: "Are these tools free to use?", a: "Yes, all our network tools are completely free to use. There's no sign-up required, no software to install, and no usage limits." },
+        { q: "How accurate are your tools?", a: "Our IP detection is 100% accurate — we show the exact public IP address your device is using. Geolocation accuracy is typically within the city level (about 80% accuracy). Country-level detection is 95-99% accurate." }
+      ]);
+    };
+  </script>
+</body>
+</html>

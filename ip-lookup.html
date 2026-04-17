@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IP Address Lookup | Find Location & ISP for Any IP</title>
+  <meta name="description" content="Look up any IP address to find its geographic location, ISP, timezone, and more. Free IP lookup tool with accurate geolocation data." />
+  <meta name="keywords" content="ip address lookup, ip lookup, ip geolocation, find ip location, ip tracker, ip address finder" />
+  <link rel="canonical" href="./ip-lookup.html" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main>
+    <div class="container">
+      <section class="section text-center">
+        <h1>IP Address Lookup</h1>
+        <p class="hero-sub">Enter any IP address to find its location, ISP, and network details instantly.</p>
+
+        <div class="lookup-row">
+          <input type="text" id="ip-input" class="lookup-input" placeholder="Enter an IP address (e.g., 8.8.8.8)" />
+          <button id="lookup-btn" class="btn btn-primary" aria-label="Lookup IP">
+            <span id="lookup-icon"></span><span>Lookup</span>
+          </button>
+        </div>
+
+        <div id="lookup-loading" class="hidden" style="padding:2rem 0"><div class="spinner"></div></div>
+        <p id="lookup-error" class="error-msg hidden"></p>
+
+        <div id="lookup-result" class="hidden" style="max-width:32rem;margin:1.5rem auto 0;text-align:left">
+          <p class="card-label" id="result-label"></p>
+          <div id="result-grid" class="info-grid"></div>
+        </div>
+      </section>
+
+      <section class="section bordered">
+        <h2>How IP Address Lookup Works</h2>
+        <div class="prose">
+          <p>An <strong>IP address lookup</strong> (also called IP geolocation) is the process of determining the geographic location and network information associated with an IP address. When you enter an IP address into our lookup tool, we query comprehensive geolocation databases to retrieve detailed information about that address.</p>
+          <p>Every device connected to the internet is assigned a unique IP address by its Internet Service Provider (ISP). These addresses are allocated in blocks to ISPs and organizations by regional internet registries such as ARIN (North America), RIPE NCC (Europe), and APNIC (Asia-Pacific). By mapping these allocations, geolocation databases can determine the approximate physical location of an IP address.</p>
+          <h3>What You Can Learn From an IP Lookup</h3>
+          <p>Our <strong>IP lookup tool</strong> reveals several pieces of information: the country, region, and city associated with the IP; the ISP or organization that owns the address block; the timezone; and approximate coordinates. This information is useful for network administrators, security researchers, and anyone who wants to verify where an IP address is located.</p>
+          <p>It's important to note that IP geolocation has limitations. It provides approximate locations, typically accurate to the city level. It cannot reveal the exact street address or personal identity of the user behind an IP. For enhanced privacy, users can employ <a class="link" href="privacy.html">VPN services</a> to mask their real IP address. To check your own IP, visit our <a class="link" href="index.html">What Is My IP</a> page.</p>
+        </div>
+      </section>
+
+      <div id="faq-container"></div>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="app.js"></script>
+  <script>
+    window.initPage = function () {
+      document.getElementById("lookup-icon").innerHTML = ICONS.search;
+
+      const input = document.getElementById("ip-input");
+      const btn = document.getElementById("lookup-btn");
+      const loading = document.getElementById("lookup-loading");
+      const errorEl = document.getElementById("lookup-error");
+      const resultWrap = document.getElementById("lookup-result");
+      const resultLabel = document.getElementById("result-label");
+      const resultGrid = document.getElementById("result-grid");
+
+      function doLookup() {
+        const ip = input.value.trim();
+        if (!ip) return;
+        errorEl.classList.add("hidden");
+        resultWrap.classList.add("hidden");
+        loading.classList.remove("hidden");
+        btn.disabled = true;
+        lookupIp(ip)
+          .then((data) => {
+            loading.classList.add("hidden");
+            btn.disabled = false;
+            resultLabel.textContent = `Lookup Results for ${data.ip}`;
+            const parts = [];
+            if (data.city) parts.push(infoCardHTML(ICONS.map, "Location", [data.city, data.region, data.country].filter(Boolean).join(", ")));
+            if (data.org) parts.push(infoCardHTML(ICONS.shield, "ISP / Org", data.org));
+            if (data.timezone) parts.push(infoCardHTML(ICONS.globe, "Timezone", data.timezone));
+            if (data.loc) parts.push(infoCardHTML(ICONS.map, "Coordinates", data.loc));
+            resultGrid.innerHTML = parts.join("") || '<div class="info-card">No additional details available.</div>';
+            resultWrap.classList.remove("hidden");
+          })
+          .catch(() => {
+            loading.classList.add("hidden");
+            btn.disabled = false;
+            errorEl.textContent = "Could not find information for that IP address. Please check the format and try again.";
+            errorEl.classList.remove("hidden");
+          });
+      }
+
+      btn.addEventListener("click", doLookup);
+      input.addEventListener("keydown", (e) => { if (e.key === "Enter") doLookup(); });
+
+      renderFaqs("faq-container", [
+        { q: "How does IP address lookup work?", a: "IP address lookup works by querying databases that map IP address ranges to geographic locations and network information. These databases are maintained by regional internet registries and commercial providers." },
+        { q: "How accurate is IP geolocation?", a: "IP geolocation is typically accurate to the city level in about 80% of cases. Country-level accuracy is usually 95-99%. However, it cannot pinpoint an exact street address. VPN users, mobile networks, and corporate proxies can reduce accuracy significantly." },
+        { q: "Can I look up any IP address?", a: "You can look up any public IP address. Private IP addresses (like 192.168.x.x or 10.x.x.x) are used within local networks and cannot be geolocated." },
+        { q: "What information does an IP lookup reveal?", a: "An IP lookup typically reveals the approximate geographic location (country, region, city), the Internet Service Provider (ISP) or hosting company, the timezone, and sometimes the organization that owns the IP block. It does not reveal personal information like names or exact addresses." }
+      ]);
+    };
+  </script>
+</body>
+</html>
