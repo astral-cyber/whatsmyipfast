@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IP Address Blog | Guides on Privacy, Security &amp; Networking</title>
+  <meta name="description" content="Expert articles on IP addresses, online privacy, VPNs, and network security. Stay informed with our latest guides and tutorials." />
+  <meta name="keywords" content="ip address blog, networking guides, vpn guides, online privacy tips" />
+  <link rel="canonical" href="./blog.html" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main>
+    <div class="container">
+      <section class="section">
+        <h1 class="text-center">Blog</h1>
+        <p class="hero-sub text-center">Guides, tutorials, and insights on IP addresses, online privacy, and network security.</p>
+        <div class="post-list" id="post-list"></div>
+      </section>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="app.js"></script>
+  <script src="posts.js"></script>
+  <script>
+    window.initPage = function () {
+      const posts = window.POSTS || [];
+      document.getElementById("post-list").innerHTML = posts.map(p => `
+        <a href="blog-post.html?slug=${encodeURIComponent(p.slug)}" class="post-card">
+          <div class="post-meta">
+            <span class="cat">${p.category}</span>
+            <span class="read">${ICONS.clock}<span>${p.readTime}</span></span>
+          </div>
+          <h2>${p.title}</h2>
+          <p>${p.excerpt}</p>
+          <span class="read-more">Read more ${ICONS.arrowRight}</span>
+        </a>`).join("");
+    };
+  </script>
+</body>
+</html>

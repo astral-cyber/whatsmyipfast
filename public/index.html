@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What Is My IP Address | Free IP Checker Tool</title>
+  <meta name="description" content="Instantly check your IP address, location, and ISP details for free. Fast, secure, and mobile-friendly IP lookup tool." />
+  <meta name="keywords" content="ip address, what is my ip, ip checker, ip lookup, my ip location, find my ip address" />
+  <meta name="author" content="What Is My IP Address" />
+  <link rel="canonical" href="./index.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="What Is My IP Address | Free IP Checker Tool" />
+  <meta property="og:description" content="Instantly check your IP address, location, and ISP details for free." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="What Is My IP Address | Free IP Checker Tool" />
+  <meta name="twitter:description" content="Instantly check your IP address, location, and ISP details for free." />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "What is an IP address?", "acceptedAnswer": { "@type": "Answer", "text": "An IP (Internet Protocol) address is a unique numerical label assigned to every device connected to the internet." } },
+      { "@type": "Question", "name": "Can someone track me with my IP address?", "acceptedAnswer": { "@type": "Answer", "text": "An IP address can reveal your approximate location and your ISP, but it cannot pinpoint your exact physical address." } },
+      { "@type": "Question", "name": "Is my IP address private?", "acceptedAnswer": { "@type": "Answer", "text": "Your public IP address is visible to every website you connect to. Use a VPN to hide it." } },
+      { "@type": "Question", "name": "Why does my IP address change?", "acceptedAnswer": { "@type": "Answer", "text": "Most home internet connections use dynamic IP addresses assigned by your ISP." } }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main>
+    <div class="container">
+      <!-- Hero -->
+      <section class="section text-center" id="ip-details">
+        <h1>What Is My IP Address</h1>
+        <p class="hero-sub">Instantly find your public IP address, location, and ISP details — free and secure.</p>
+
+        <div class="ip-card">
+          <p class="card-label">Your IP Address</p>
+          <div id="ip-display">
+            <div class="loading-state">
+              <div class="spinner"></div>
+              <p>Detecting your IP…</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="ip-location" class="hidden" style="max-width:32rem;margin:1.5rem auto 0">
+          <p class="card-label">IP Location Details</p>
+          <div id="ip-location-grid" class="info-grid"></div>
+        </div>
+      </section>
+
+      <!-- Internal Links -->
+      <section class="section-sm" style="border-top:1px solid var(--border)">
+        <div class="cta-grid">
+          <a href="ip-lookup.html" class="cta-card">
+            <h3>IP Address Lookup</h3>
+            <p>Look up any IP address and get detailed location and ISP information.</p>
+          </a>
+          <a href="privacy.html" class="cta-card">
+            <h3>Privacy &amp; VPN Guide</h3>
+            <p>Learn how to protect your IP address and browse the internet safely.</p>
+          </a>
+          <a href="tools.html" class="cta-card">
+            <h3>Network Tools</h3>
+            <p>Explore our collection of free network diagnostic and lookup tools.</p>
+          </a>
+        </div>
+      </section>
+
+      <!-- About -->
+      <section class="section bordered" id="about-ip">
+        <h2>What Is an IP Address?</h2>
+        <div class="prose">
+          <p>An <strong>IP address</strong> (Internet Protocol address) is a unique string of numbers separated by periods (IPv4) or colons (IPv6) that identifies each device using the Internet Protocol to communicate over a network. Every device that connects to the internet — whether it's a smartphone, laptop, or smart TV — is assigned an IP address by its network.</p>
+          <p>There are two main versions of IP addresses in use today. <strong>IPv4</strong> addresses look like <code>192.168.1.1</code> and are the most common format. <strong>IPv6</strong> addresses are longer and were created to handle the growing number of devices online.</p>
+          <h3>Why Your IP Address Matters</h3>
+          <p>Your IP address is essential for online communication. Without it, websites wouldn't know where to send the data you request. When you visit a website, your browser sends your IP address to the server so it can send the webpage back to you.</p>
+          <p>However, your IP address also reveals information about you. It can show your approximate geographic location, your Internet Service Provider (ISP), and can be used by websites for analytics, personalization, and sometimes geo-restrictions. This is why many privacy-conscious users choose to use a <strong>VPN</strong> to mask their real IP address. Learn more in our <a class="link" href="privacy.html">Privacy &amp; VPN guide</a>.</p>
+          <p>Understanding your IP address is the first step to better online privacy. Use our free <strong>IP address checker</strong> tool above to instantly find your public IP, see your location details, and learn what information your IP reveals. You can also use our <a class="link" href="ip-lookup.html">IP lookup tool</a> to check any IP address.</p>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <div id="faq-container"></div>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="app.js"></script>
+  <script>
+    window.initPage = function () {
+      const display = document.getElementById("ip-display");
+      const locWrap = document.getElementById("ip-location");
+      const locGrid = document.getElementById("ip-location-grid");
+
+      function render(data) {
+        if (!data || !data.ip) {
+          display.innerHTML = '<p style="color:var(--muted-foreground);padding:1.5rem 0">Unable to detect IP address. Please try again.</p>';
+          return;
+        }
+        display.innerHTML = `
+          <p class="ip-value">${data.ip}</p>
+          <div class="btn-row">
+            <button class="btn btn-primary" id="copy-btn">${ICONS.copy}<span>Copy IP</span></button>
+            <button class="btn btn-secondary" id="refresh-btn">${ICONS.refresh}<span>Refresh</span></button>
+          </div>`;
+
+        document.getElementById("copy-btn").addEventListener("click", () => {
+          navigator.clipboard.writeText(data.ip);
+          const btn = document.getElementById("copy-btn");
+          btn.innerHTML = `${ICONS.check}<span>Copied</span>`;
+          toast("IP address copied!");
+          setTimeout(() => { btn.innerHTML = `${ICONS.copy}<span>Copy IP</span>`; }, 2000);
+        });
+        document.getElementById("refresh-btn").addEventListener("click", load);
+
+        const parts = [];
+        if (data.city) parts.push(infoCardHTML(ICONS.map, "Location", [data.city, data.region, data.country].filter(Boolean).join(", ")));
+        if (data.org) parts.push(infoCardHTML(ICONS.shield, "ISP", data.org));
+        if (data.timezone) parts.push(infoCardHTML(ICONS.globe, "Timezone", data.timezone));
+        if (data.loc) parts.push(infoCardHTML(ICONS.map, "Coordinates", data.loc));
+        if (parts.length) {
+          locGrid.innerHTML = parts.join("");
+          locWrap.classList.remove("hidden");
+        } else {
+          locWrap.classList.add("hidden");
+        }
+      }
+
+      function load() {
+        display.innerHTML = '<div class="loading-state"><div class="spinner"></div><p>Detecting your IP…</p></div>';
+        locWrap.classList.add("hidden");
+        fetchMyIp().then(render).catch(() => render(null));
+      }
+      load();
+
+      renderFaqs("faq-container", [
+        { q: "What is an IP address?", a: "An IP (Internet Protocol) address is a unique numerical label assigned to every device connected to the internet. It serves as an identifier that allows devices to communicate with each other across networks. Think of it like a mailing address for your computer." },
+        { q: "Can someone track me with my IP address?", a: "An IP address can reveal your approximate location (city or region level) and your Internet Service Provider, but it cannot pinpoint your exact physical address or identity. However, law enforcement agencies can request your ISP to provide more details with a court order." },
+        { q: "Is my IP address private?", a: "Your public IP address is visible to every website and online service you connect to — it is not private by default. To mask your IP and enhance privacy, you can use a VPN (Virtual Private Network) or a proxy service." },
+        { q: "Why does my IP address change?", a: "Most residential internet connections use dynamic IP addresses assigned by your ISP. These can change when your router restarts, when your ISP rotates addresses, or when your DHCP lease expires. Businesses often use static IPs that don't change." }
+      ]);
+    };
+  </script>
+</body>
+</html>

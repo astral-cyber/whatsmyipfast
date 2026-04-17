@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IP Privacy & VPN Guide | Protect Your IP Address Online</title>
+  <meta name="description" content="Learn how your IP address can be tracked, what it reveals about you, and how to protect your privacy with VPNs and other tools." />
+  <meta name="keywords" content="ip privacy, vpn guide, hide ip address, ip tracking, online privacy" />
+  <link rel="canonical" href="./privacy.html" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main>
+    <div class="container">
+      <section class="section text-center">
+        <span class="badge"><span id="badge-icon"></span> Privacy Guide</span>
+        <h1>IP Privacy &amp; VPN Guide</h1>
+        <p class="hero-sub">Understand how your IP address can be used to track you online and learn how to protect your digital privacy.</p>
+      </section>
+
+      <section style="padding-bottom:3rem">
+        <div class="feature-grid" id="feature-grid"></div>
+      </section>
+
+      <section class="section bordered">
+        <h2>How IP Tracking Works</h2>
+        <div class="prose">
+          <p>Every time you connect to the internet, your device is assigned a public <strong>IP address</strong> by your Internet Service Provider. This address is visible to every website and online service you interact with. It's a fundamental part of how the internet works — but it also means that your online activities can be linked to your approximate physical location.</p>
+          <p>Websites, advertisers, and analytics companies use IP addresses to build profiles about users. They can determine your country, city, and sometimes even your neighborhood. Combined with browser fingerprinting and cookies, your IP address becomes one piece of a detailed digital footprint that tracks your behavior across the web.</p>
+          <h3>Why You Should Protect Your IP Address</h3>
+          <p>There are several compelling reasons to hide your IP address. First, <strong>privacy</strong> — without protection, any website can log your IP and associate it with your browsing patterns. Second, <strong>security</strong> — malicious actors who obtain your IP could launch targeted attacks. Third, <strong>freedom</strong> — many online services restrict content based on geographic location determined by your IP.</p>
+          <h3>How VPNs Protect You</h3>
+          <p>A Virtual Private Network (VPN) creates an encrypted tunnel between your device and a VPN server. When you use a VPN, websites see the VPN server's IP address instead of your real one. This effectively masks your location and identity from anyone monitoring your traffic. Modern VPNs use military-grade encryption (AES-256) that makes it practically impossible to intercept your data.</p>
+          <p>To check what your current IP address reveals, use our <a class="link" href="index.html">What Is My IP tool</a>. You can also <a class="link" href="ip-lookup.html">look up any IP address</a> to see what information it exposes. For more network tools, visit our <a class="link" href="tools.html">tools page</a>.</p>
+        </div>
+      </section>
+
+      <div id="faq-container"></div>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="app.js"></script>
+  <script>
+    window.initPage = function () {
+      document.getElementById("badge-icon").innerHTML = ICONS.shield;
+
+      const features = [
+        { icon: ICONS.eye, title: "What Your IP Reveals", desc: "Your IP address exposes your approximate location, ISP, and can be used to track your browsing habits across websites." },
+        { icon: ICONS.alert, title: "Risks of IP Exposure", desc: "Exposed IPs can lead to targeted ads, geo-restrictions, potential DDoS attacks, and reduced online anonymity." },
+        { icon: ICONS.lock, title: "VPN Protection", desc: "A VPN encrypts your connection and masks your IP, making it virtually impossible for third parties to track your online activity." },
+        { icon: ICONS.eyeOff, title: "Browse Anonymously", desc: "With your real IP hidden, you can browse the web without leaving a trail that can be traced back to your physical location." }
+      ];
+      document.getElementById("feature-grid").innerHTML = features.map(f => `
+        <div class="feature-card">
+          <div class="icon">${f.icon}</div>
+          <h3>${f.title}</h3>
+          <p>${f.desc}</p>
+        </div>`).join("");
+
+      renderFaqs("faq-container", [
+        { q: "Does a VPN hide my IP address?", a: "Yes, a VPN encrypts your internet connection and routes it through a server in another location. This replaces your real IP address with the VPN server's IP, effectively hiding your true IP from websites, advertisers, and potential attackers." },
+        { q: "Can my ISP see what I do online?", a: "Without a VPN, your ISP can see which websites you visit, when you visit them, and how much data you transfer. With a VPN, your ISP can only see that you're connected to a VPN server." },
+        { q: "Is using a VPN legal?", a: "In most countries, using a VPN is completely legal. However, some countries restrict or ban VPN usage. It's important to check your local laws." },
+        { q: "What's the difference between a VPN and a proxy?", a: "A proxy server routes your web traffic through an intermediary server, changing your visible IP address. However, unlike a VPN, a proxy typically doesn't encrypt your traffic." }
+      ]);
+    };
+  </script>
+</body>
+</html>

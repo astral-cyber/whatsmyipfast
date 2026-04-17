@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Article | IP Checker Blog</title>
+  <meta name="description" content="In-depth article on IP addresses, online privacy, and network security." />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main>
+    <article class="article" id="article-root">
+      <a href="blog.html" class="back-link" id="back-link"></a>
+      <div id="article-body"></div>
+    </article>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="app.js"></script>
+  <script src="posts.js"></script>
+  <script>
+    window.initPage = function () {
+      const params = new URLSearchParams(location.search);
+      const slug = params.get("slug");
+      const article = (window.ARTICLES || {})[slug];
+      const root = document.getElementById("article-body");
+      const back = document.getElementById("back-link");
+      back.innerHTML = `${ICONS.arrowLeft}<span>Back to Blog</span>`;
+
+      if (!article) {
+        document.title = "Article Not Found | IP Checker Blog";
+        root.innerHTML = `
+          <div class="text-center" style="padding:3rem 0">
+            <h1>Article Not Found</h1>
+            <p style="color:var(--muted-foreground);margin-bottom:1.5rem">The article you're looking for doesn't exist.</p>
+            <a class="link" href="blog.html">← Back to Blog</a>
+          </div>`;
+        return;
+      }
+
+      document.title = `${article.title} | IP Checker Blog`;
+      document.querySelector('meta[name="description"]').setAttribute("content", article.description);
+
+      root.innerHTML = `
+        <div class="post-meta">
+          <span class="cat">${article.category}</span>
+          <span class="read">${ICONS.clock}<span>${article.readTime}</span></span>
+          <span>${article.date}</span>
+        </div>
+        <h1>${article.title}</h1>
+        <div class="prose">${article.content}</div>
+        <div class="tag-row">
+          <h3>Explore More</h3>
+          <div class="tags">
+            <a class="pill" href="index.html">Check Your IP</a>
+            <a class="pill" href="ip-lookup.html">IP Lookup</a>
+            <a class="pill" href="privacy.html">Privacy Guide</a>
+            <a class="pill" href="tools.html">All Tools</a>
+            <a class="pill" href="blog.html">More Articles</a>
+          </div>
+        </div>`;
+    };
+  </script>
+</body>
+</html>
