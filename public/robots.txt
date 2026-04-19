@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /404
 
-Sitemap: https://whatsmyipfast.lovable.app/sitemap.xml
+Sitemap: https://whatsmyip.nett.to/sitemap.xml
